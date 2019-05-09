@@ -1,0 +1,12 @@
+body {
+    color: #4e4e4e;
+    background: #e2e2e2;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    background: #ef3b3a;
+    height: 80px;
+    font-size: 30px;
+    text-align: center;
+}
