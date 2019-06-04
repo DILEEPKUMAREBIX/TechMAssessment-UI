@@ -1,0 +1,48 @@
+<div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6">
+            <h3> USERS </h3>
+        </div>
+        <div class="col-xs-6">
+            <form>
+            <div class="form-group form-inline float-right">
+                <b>Search</b>: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+            </div>
+          </form>  
+        </div>
+    </div>
+</div>
+</div>
+
+<table class="table table-striped">
+  <thead class="table-head">
+    <tr>
+      <th>User Id</th>
+      <th>Name</th>
+      <th>DOB</th>
+      <th>Gender</th>
+      <th>Address</th>
+      <th>Created On</th>
+      <th>Last Updated On</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let profile of countries">
+        <td>{{profile.id}}</td>
+      <td>{{profile.firstName | uppercase}} {{profile.lastName | uppercase}}</td>
+      <td>{{profile.dob | date : 'dd-MMM-yyyy'}}</td>
+      <td>{{profile.gender | uppercase}}</td>
+      <td>{{profile.address | uppercase}}</td>
+      <td>{{profile.createdAt | uppercase}}</td>
+      <td>{{profile.updatedAt | uppercase}}</td>
+      <!-- <td><span class="glyphicon glyphicon-pencil" (click)="editUser(profile)"></span></td> -->
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-between p-2" >
+  <ngb-pagination [collectionSize]="filteredProfiles.length" [(page)]="page" [pageSize]="pageSize">
+  </ngb-pagination>
+</div>

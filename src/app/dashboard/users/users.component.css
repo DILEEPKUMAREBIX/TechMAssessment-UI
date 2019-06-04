@@ -1,0 +1,21 @@
+.table-head {
+    background-color: #ef3b3a;
+}
+
+
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+a.page-item.active .page-link {
+  background-color: #ef3b3a;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+  z-index: 3;
+  color: #fff;
+  cursor: default;
+  background-color: #ef3b3a !important;
+  border-color: #ef3b3a !important;
+}
