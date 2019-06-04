@@ -8,25 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  
-    profiles: any = [];
-    constructor(public service:ProfileService, public router:Router) {
+  showDashBoard = true;
+  constructor(public router: Router, public profileService: ProfileService) {
 
-    }
+  }
 
-    ngOnInit() {
-        this.service.getAllProfiles().subscribe(
-            (data) => {
-                this.profiles = data;
-            },
-            (error)=> {
+  navigate(router: string) {
+    this.showDashBoard = false;
+    this.router.navigate(['/dashboard', router]);
+  }
 
-            }
-        )
-    }
-
-    editUser(profile) {
-        this.service.editProfile = profile;
-        this.router.navigate(['/', 'profile']);
-    }
+  navigateToDashBoard() {
+    this.showDashBoard = true;
+    this.router.navigate(['/dashboard']);
+  }
 }

@@ -1,30 +1,83 @@
-<div>
-    <h3> Dash Board</h3> 
+<!-- <div class="sidebar">
+  <a class="active" [routerLink]="['users']">All Users</a>
+  <a [routerLink]="['update']">Update</a>
+  <a [routerLink]="['trends']">Trends</a>
+  <a [routerLink]="['/']">Logout</a>
+
 </div>
-<div>
-<table class="table table-striped">
-    <thead class="table-head">
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>FilePath</th>
-        <th>Edit</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let profile of profiles">
-        <td>{{profile.firstName}}</td>
-        <td>{{profile.lastName}}</td>
-        <td>{{profile.phone}}</td>
-        <td>{{profile.email}}</td>
-        <td>{{profile.address}}</td>
-        <td>{{profile.filepath}}</td>
-        <td><span class="glyphicon glyphicon-pencil" (click)="editUser(profile)"></span></td>
-      </tr>      
-      
-    </tbody>
-  </table>
+
+<div class="content">
+  <h3> Hello {{profileService.loggedInProfile.firstName | uppercase}} </h3>
+  <router-outlet ></router-outlet>
+</div>
+ -->
+
+
+<section *ngIf="showDashBoard" class="section">
+  <h1> DASHBOARD ({{profileService.loggedInProfile.firstName | uppercase}}) </h1>
+  <div class="container">
+    <div class="row mbr-justify-content-center">
+      <div class="col-lg-6 mbr-col-md-10" (click)="navigate('users')">
+        <div class="wrap">
+          <div class="ico-wrap">
+            <span class="mbr-iconfont fa-users fa"></span>
+          </div>
+          <div class="text-wrap vcenter">
+            <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
+              <div> USERS </div>
+            </h2>
+            <p class="mbr-fonts-style text1 mbr-text display-6">Lorem Ipsum is simply dummy text of the printing and
+              typesetting industry. Lorem Ipsum</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mbr-col-md-10" (click)="navigate('update')">
+        <div class="wrap">
+          <div class="ico-wrap">
+            <span class="mbr-iconfont fa-edit fa"></span>
+          </div>
+          <div class="text-wrap vcenter">
+            <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
+              UPDATE PROFILE
+            </h2>
+            <p class="mbr-fonts-style text1 mbr-text display-6">Lorem Ipsum is simply dummy text of the printing and
+              typesetting industry. Lorem Ipsum</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mbr-col-md-10" (click)="navigate('trends')">
+        <div class="wrap">
+          <div class="ico-wrap">
+            <span class="mbr-iconfont fa fa-chart-line"></span>
+          </div>
+          <div class="text-wrap vcenter">
+            <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
+              <span>TRENDS</span>
+            </h2>
+            <p class="mbr-fonts-style text1 mbr-text display-6">This page will show you the number of users added in the year 2019 month wise</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mbr-col-md-10" [routerLink]="['/']">
+        <div class="wrap">
+          <div class="ico-wrap">
+            <span class="mbr-iconfont fa fa-chart-line"></span>
+          </div>
+          <div class="text-wrap vcenter">
+            <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
+              <span>LOGOUT</span>
+            </h2>
+            <p class="mbr-fonts-style text1 mbr-text display-6">Lorem Ipsum is simply dummy text of the printing and
+              typesetting industry. Lorem Ipsum</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div *ngIf="!showDashBoard">
+  <input type="button" value="DashBoard" (click)="navigateToDashBoard()" />
+  <input type="button" value="Logout" [routerLink]="['/']" />
+  <!-- <button (click)="navigateToDashBoard()" >Dashboard</button> -->
+  <router-outlet></router-outlet>
 </div>
