@@ -1,6 +1,7 @@
 <div>
-    <h3 *ngIf="!isUpdateAction"> Create Profile ({{loginService['loggedInUser']['username']}} )</h3>
-    <h3 *ngIf="isUpdateAction"> Update Profile ({{loginService['loggedInUser']['username']}} )</h3>
+    <h3 *ngIf="!isUpdateAction"> Create Profile ({{service?.loggedInProfile?.email}} )</h3>
+    <h3 *ngIf="isUpdateAction"> Update Profile</h3>
+    <!-- ({{service?.loggedInProfile?.firstName}} -->
 </div>
 
 <div class="container register-form">
@@ -9,15 +10,23 @@
             <p>Please enter your personal details.</p>
         </div>
 
-        <div class="form-content" [formGroup]="profileForm">
-            <div class="alert alert-danger" *ngIf="showMessage">
+        <div class="form-content" [formGroup]="profileForm" *ngIf="isFormCreated">
+            <div [ngClass]="{
+        'alert-danger':alertType == 'danger',
+        'alert-success':alertType == 'success'}" class="alert alert-danger" *ngIf="showMessage">
                 {{message}}
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     <input type="text" class="form-control" formControlName="firstName" placeholder="First Name*"
-                        value="" />
+                        value="" required />
+
+                    <!-- <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': f.firstName.errors }" />
+                            <div *ngIf="f.firstName.errors && (f.firstName.dirty || f.firstName.touched)" class="invalid-feedback">
+                                <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                            </div> -->
                 </div>
+
                 <div class="form-group col-md-6">
                     <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name"
                         value="" />
@@ -25,12 +34,22 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
-                    <input type="text" class="form-control" formControlName="phone" placeholder="Email Address"
-                        value="" />
+                    <input type="date" name="dob" formControlName="dob" min="1950-01-01" max="2100-12-31"
+                        class="form-control">
                 </div>
                 <div class="form-group col-md-6">
-                    <input type="text" class="form-control" formControlName="email" placeholder="Phone Number"
-                        value="" />
+                    <div class="row">
+                        <label>Please select your gender</label>
+                        <label class="md-check">
+                            <input type="radio" value="female" name="gender" formControlName="gender">
+                            Female
+                        </label>
+
+                        <label class="md-check">
+                            <input type="radio" value="male" name="gender" formControlName="gender">
+                            Male
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -38,11 +57,24 @@
                     <input type="text" class="form-control" formControlName="address" placeholder="Address" value="" />
                 </div>
                 <div class="form-group col-md-6" *ngIf="isUpdateAction">
-                    <input type='file' id="imgInp" (change)="setImage($event.target.files)" />
+                    <!-- <input class="fileUpload btn btn-primary" #myInput type='file' class="inputfile" accept=".pdf,.jpg,.jpeg,.png" id="imgInp"
+                        (change)="setImage($event.target.files)" /> -->
+
+                    <div style="position:relative;">
+                        <a class='btn btn-danger' href='javascript:;'>
+                            Choose File...
+                            <input type="file" #myInput (change)="setImage($event.target.files)" accept=".pdf,.jpg,.jpeg,.png"
+                                style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;'
+                                name="file_source" size="40">
+                        </a>
+                        &nbsp;
+                        <span class='label label-danger' id="upload-file-info">{{fileName}}</span>
+                    </div>
                 </div>
             </div>
 
             <button type="button" (click)="submitProfilewithFile()" class="btnSubmit">{{buttonText}}</button>
+            <button type="button" (click)="onReset()" *ngIf="isUpdateAction" class="btnSubmit">Reset</button>
         </div>
     </div>
 </div>
